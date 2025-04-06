@@ -1,13 +1,14 @@
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
+import nltk
+from nltk.sentiment import SentimentIntensityAnalyzer
 
-analyzer = SentimentIntensityAnalyzer()
+nltk.download('vader_lexicon')
+sia = SentimentIntensityAnalyzer()
 
 def analyze_sentiment(text):
-    scores = analyzer.polarity_scores(text)
-    compound = scores['compound']
-    if compound >= 0.05:
+    score = sia.polarity_scores(text)
+    if score['compound'] > 0:
         return "Positive 😊"
-    elif compound <= -0.05:
-        return "Negative 😠"
+    elif score['compound'] < 0:
+        return "Negative 😞"
     else:
         return "Neutral 😐"
